@@ -10,15 +10,17 @@ for (let [key, value] of l)
     list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`;
 
 search.addEventListener('keyup', () => {
-    let value = search.value;
+    let key = search.value;
     let exact = exactly.checked;
     list.innerHTML = '';
     //console.log(l[value]);
     console.log(exact);
-    console.log(value);
-    if (exact && value != "") {
-        if (l.has(value)) {
-            let content = l.get(value);
+
+
+
+    if (exact && key != "") { //exact search
+        if (l.has(key)) { //if the value is in the map
+            let content = l.get(key);
             list.innerHTML += `<a href="process.php?id=${content[0]}"><img src="${content[1]}" alt="" width="300" height="300"></a> ${value}`;
         }
     } else

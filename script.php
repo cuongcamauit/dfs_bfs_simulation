@@ -57,31 +57,31 @@ function delay(delayInms) {
 }
 
 async function bfs() {
-    var n = parseInt(userInput.value);
-    var queue = [];
-    var start = parseInt(document.querySelector(".green").id);
-    var end = parseInt(document.querySelector(".red").id);
+    var n = parseInt(userInput.value);  // number of rows
+    var queue = []; // queue for BFS
+    var start = parseInt(document.querySelector(".green").id); // start node
+    var end = parseInt(document.querySelector(".red").id);  // end node
     // console.log(document.querySelector(".green"));
     // console.log(start);
-    queue.push(start);
-    var d = 0;
-    while (queue.length != 0) {
-        var u = parseInt(queue.shift());
+    queue.push(start);  // push start node to queue       // O(1)
+    // var d = 0;  
+    while (queue.length != 0) {                           //O(n*n)
+        var u = parseInt(queue.shift()); // pop first element from queue
         console.log(u);
 
         // top            
         if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {
             queue.push(u - n);
-            let delayres1 = await delay(time);
+            let delayres1 = await delay(time);  // delay
             document.getElementById(`${u-n}`).className = "blue";
 
         }
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) {
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) { // if end node
             break;
         }
 
         // right
-        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) {
+        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) { // if not last column
             queue.push(u + 1);
             let delayres2 = await delay(time);
             document.getElementById(`${u+1}`).className = "blue";
@@ -120,7 +120,6 @@ async function bfs() {
 }
 
 async function dfs() {
-    console.log("10");
     var n = parseInt(userInput.value);
     var stack = [];
     var start = parseInt(document.querySelector(".green").id);
@@ -133,7 +132,7 @@ async function dfs() {
         console.log(u);
         // top            
         if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {
-            stack.push(u);
+            stack.push(u); // push current node to stack
             stack.push(u - n);
             let delayres1 = await delay(time);
             document.getElementById(`${u-n}`).className = "blue";
@@ -189,11 +188,12 @@ async function dfs() {
 }
 
 returnarray = () => {
+    
     var arr = new Array(userInput.value*userInput.value);
     for (let i = 0; i < userInput.value*userInput.value; i++) {
         arr[i] = new Array(userInput.value*userInput.value);
         for (let j = 0; j < userInput.value*userInput.value; j++) {
-            arr[i][j] = 0;
+            arr[i][j] = 0; // initialize all elements to 0
         }
         if (document.getElementById(i).className == "color") {
             continue;
@@ -274,8 +274,11 @@ async function dijkstra()
     let graph = returnarray();
     let src = parseInt(document.querySelector(".green").id);
     let end = parseInt(document.querySelector(".red").id);
-	let dist = new Array(V);
-	let sptSet = new Array(V);
+
+
+
+	let dist = new Array(V); 
+	let sptSet = new Array(V);  
     let prev = new Array(V);
 	
 	// Initialize all distances as
