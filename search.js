@@ -6,11 +6,11 @@ const exactly = document.querySelector('#exactly');
 // });
 
 console.log(exactly);
-for (let [key, value] of l)
+for (let [key, value] of map)
     list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`;
 
 search.addEventListener('keyup', () => {
-    let key = search.value;
+    let searchkey = search.value;
     let exact = exactly.checked;
     list.innerHTML = '';
     //console.log(l[value]);
@@ -18,14 +18,14 @@ search.addEventListener('keyup', () => {
 
 
 
-    if (exact && key != "") { //exact search
-        if (l.has(key)) { //if the value is in the map
-            let content = l.get(key);
-            list.innerHTML += `<a href="process.php?id=${content[0]}"><img src="${content[1]}" alt="" width="300" height="300"></a> ${value}`;
+    if (exact && searchkey != "") { //exact search
+        if (map.has(searchkey)) { //if the value is in the map
+            let content = map.get(searchkey);
+            list.innerHTML += `<a href="process.php?id=${content[0]}"><img src="${content[1]}" alt="" width="300" height="300"></a> ${searchkey}`;
         }
     } else
-        for (let [key, valu] of l) {
-            if (key.toLowerCase().includes(value.toLowerCase()))
-                list.innerHTML += `<a href="process.php?id=${valu[0]}"><img src="${valu[1]}" alt="" width="300" height="300"></a> ${key}`;
+        for (let [key, value] of map) {
+            if (key.toLowerCase().includes(searchkey.toLowerCase()))
+                list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`;
         }
 });

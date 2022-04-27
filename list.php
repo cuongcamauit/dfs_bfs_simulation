@@ -27,7 +27,7 @@
         </div>  
         <br><br>
         <div id="list"></div>
-        <script>var l = new Map();
+        <script>var map = new Map();
                 var namelist = new Array();
         </script>
     
@@ -35,7 +35,7 @@
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) { ?>
             <script>
-                l.set("<?php echo $row['name'];?>", [<?php echo $row['id'];?>, "<?php echo $row["director"];?>", <?php echo $row["level"];?>]);
+                map.set("<?php echo $row['name'];?>", [<?php echo $row['id'];?>, "<?php echo $row["director"];?>", <?php echo $row["level"];?>]);
                 namelist.push("<?php echo $row['name'];?>");               
             </script>
         <?php
@@ -47,8 +47,8 @@
     mysqli_close($conn);
     ?> 
     <script>
-        let defaultlist = l;
-        console.log(l);
+        let defaultlist = map;
+        console.log(map);
     </script>
     <script src="search.js"></script> 
     <script src="sort.js"></script>     

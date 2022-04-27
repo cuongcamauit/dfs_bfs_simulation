@@ -195,26 +195,26 @@ returnarray = () => {
         for (let j = 0; j < userInput.value*userInput.value; j++) {
             arr[i][j] = 0; // initialize all elements to 0
         }
-        if (document.getElementById(i).className == "color") {
+        if (document.getElementById(i).className == "gray") {
             continue;
         }
         // up
-        if (i-userInput.value >= 0 && document.getElementById(`${i-userInput.value}`).className != "color") {
+        if (i-userInput.value >= 0 && document.getElementById(`${i-userInput.value}`).className != "gray") {
             arr[i][i-userInput.value] = 1;
         }
 
         // down        
-        if (i+parseInt(userInput.value) < userInput.value*userInput.value && document.getElementById(`${i+parseInt(userInput.value)}`).className != "color") {
+        if (i+parseInt(userInput.value) < userInput.value*userInput.value && document.getElementById(`${i+parseInt(userInput.value)}`).className != "gray") {
             arr[i][i+parseInt(userInput.value)] = 1;
         }
 
         // left
-        if (i%userInput.value != 0 && document.getElementById(`${i-1}`).className != "color") {
+        if (i%userInput.value != 0 && document.getElementById(`${i-1}`).className != "gray") {
             arr[i][i-1] = 1;
         }
         
         // right
-        if ((i+1)%userInput.value != 0 && document.getElementById(`${i+1}`).className != "color") {
+        if ((i+1)%userInput.value != 0 && document.getElementById(`${i+1}`).className != "gray") {
             arr[i][i+1] = 1;
         }
     }
@@ -354,7 +354,7 @@ square.addEventListener("click", function(event) {
     if (eraseStatus)
         event.target.className = "square";
     else
-        event.target.classList.replace("square", "color");
+        event.target.classList.replace("square", "gray");
     // console.log(square);
     // console.log(event.target);
     // console.log(grid);
@@ -364,9 +364,9 @@ square.addEventListener("dblclick", function(event) {
     const count = document.querySelectorAll(".green").length;
     const count2 = document.querySelectorAll(".red").length;
     if (count == 0) {
-        event.target.classList.replace("color", "green");
+        event.target.classList.replace("gray", "green");
     } else if (count == 1 && count2 == 0) {
-        event.target.classList.replace("color", "red");
+        event.target.classList.replace("gray", "red");
     }
 });
 
