@@ -345,27 +345,52 @@ async function dijkstra()
 
 
 
-
 const square = document.querySelector("div");
-square.addEventListener("click", function(event) {
-    if (eraseStatus)
-        event.target.className = "square";
-    else
-        event.target.classList.replace("square", "black");
-    // console.log(square);
-    // console.log(event.target);
-    // console.log(grid);
-});
+let flag = false;
+
+
 
 square.addEventListener("dblclick", function(event) {
     const count = document.querySelectorAll(".green").length;
     const count2 = document.querySelectorAll(".red").length;
     if (count == 0) {
+        event.target.classList.replace("square", "green");
         event.target.classList.replace("black", "green");
     } else if (count == 1 && count2 == 0) {
+        event.target.classList.replace("square", "red");
         event.target.classList.replace("black", "red");
     }
 });
+square.addEventListener("click", function(event) {
+    console.log(flag);
+    flag = !flag;
+});
+
+
+
+square.addEventListener("mousemove", function(event) {
+    if (flag) {
+        if (eraseStatus)
+            event.target.className = "square";
+        else
+            event.target.classList.replace("square", "black");
+            
+        }
+        // console.log(square);
+        // console.log(event.target);
+        // console.log(grid);
+});
+
+square.addEventListener("mousedown", function() {
+    console.log(10);
+});
+
+
+
+
+
+
+
 
 
 userInput.addEventListener("change", updateGrid);
