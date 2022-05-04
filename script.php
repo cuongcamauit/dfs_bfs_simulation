@@ -57,27 +57,27 @@ function delay(delayInms) {
 }
 
 async function bfs() {
-    var n = parseInt(userInput.value);  // number of rows
-    var queue = []; // queue for BFS
-    var start = parseInt(document.querySelector(".green").id); // start node
-    var end = parseInt(document.querySelector(".red").id);  // end node
-    // console.log(document.querySelector(".green"));
+    var n = parseInt(userInput.value);  // number of rows          //O(1)
+    var queue = []; // queue for BFS                        //O(1)
+    var start = parseInt(document.querySelector(".green").id); // start node   //O(1)
+    var end = parseInt(document.querySelector(".red").id);  // end node //O(1)
+    // console.log(document.querySelector(".green"));      
     // console.log(start);
     queue.push(start);  // push start node to queue       // O(1)
     // var d = 0;  
-    while (queue.length != 0) {                           //O(n*n)
-        var u = parseInt(queue.shift()); // pop first element from queue
+    while (queue.length != 0) {                           //O(n)
+        var u = parseInt(queue.shift()); // pop first element from queue       //O(n)
         console.log(u);
 
         // top            
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {
-            queue.push(u - n);
-            let delayres1 = await delay(time);  // delay
-            document.getElementById(`${u-n}`).className = "blue";
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {           //O(n)
+            queue.push(u - n);                                                                   //O(n)
+            let delayres1 = await delay(time);  // delay                                         
+            document.getElementById(`${u-n}`).className = "blue";                                 //O(n)
 
         }
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) { // if end node
-            break;
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) { // if end node   //O(n)
+            break;                                                                                    //O(n)
         }
 
         // right
@@ -230,22 +230,22 @@ returnarray = () => {
 // value, from the set of vertices
 // not yet included in shortest
 // path tree
-function minDistance(dist,sptSet)
+function minDistance(dist,sptSet)                               //O(V)
 {
-	let V = parseInt(userInput.value*userInput.value);
+	let V = parseInt(userInput.value*userInput.value);         //O(1)
 	// Initialize min value
-	let min = Number.MAX_VALUE;
-	let min_index = -1;
+	let min = Number.MAX_VALUE;                                     //O(1)
+	let min_index = -1;                                         //O(1)
 	
-	for(let v = 0; v < V; v++)
-	{
-		if (sptSet[v] == false && dist[v] <= min)
+	for(let v = 0; v < V; v++)                                  //O(V)
+	{   
+		if (sptSet[v] == false && dist[v] <= min)                  //O(V)
 		{
-			min = dist[v];
-			min_index = v;
+			min = dist[v];                                      //O(V)
+			min_index = v;                                      //O(V)
 		}
 	}
-	return min_index;
+	return min_index;                                           //O(1)
 }
 
 // A utility function to print
@@ -267,45 +267,45 @@ function minDistance(dist,sptSet)
 // matrix representation
 async function dijkstra()
 {
-    let V = parseInt(userInput.value*userInput.value);
-    let graph = returnarray();
-    let src = parseInt(document.querySelector(".green").id);
-    let end = parseInt(document.querySelector(".red").id);
+    let V = parseInt(userInput.value*userInput.value);           //O(1)
+    let graph = returnarray();                                    
+    let src = parseInt(document.querySelector(".green").id);    //O(1)
+    let end = parseInt(document.querySelector(".red").id);      //O(1)
 
 
 
-	let dist = new Array(V); 
-	let sptSet = new Array(V);  
-    let prev = new Array(V);
+	let dist = new Array(V);                                    //O(1)
+	let sptSet = new Array(V);                                  //O(1)
+    let prev = new Array(V);                                    //O(1)
 	
 	// Initialize all distances as
 	// INFINITE and stpSet[] as false
-	for(let i = 0; i < V; i++)
+	for(let i = 0; i < V; i++)                                  //O(V)
 	{
-		dist[i] = Number.MAX_VALUE;
-		sptSet[i] = false;
+		dist[i] = Number.MAX_VALUE;                             //O(V)
+		sptSet[i] = false;                                      //O(V)
 	}
 	
 	// Distance of source vertex
 	// from itself is always 0
-	dist[src] = 0;
+	dist[src] = 0;                                                 //O(1)
 	
 	// Find shortest path for all vertices
-	for(let count = 0; count < V - 1; count++)
+	for(let count = 0; count < V - 1; count++)                      //O(V)
 	{
 		
 		// Pick the minimum distance vertex
 		// from the set of vertices not yet
 		// processed. u is always equal to
 		// src in first iteration.
-		let u = minDistance(dist, sptSet);
+		let u = minDistance(dist, sptSet);                          //O(V)
 		
 		// Mark the picked vertex as processed
-		sptSet[u] = true;
+		sptSet[u] = true;                                                   //O(1)
 		
 		// Update dist value of the adjacent
 		// vertices of the picked vertex.
-		for(let v = 0; v < V; v++)
+		for(let v = 0; v < V; v++)                                  //O(V*V)
 		{
 			
 			// Update dist[v] only if is not in
@@ -313,26 +313,26 @@ async function dijkstra()
 			// to v, and total weight of path
 			// from src to v through u is smaller
 			// than current value of dist[v]
-			if (!sptSet[v] && graph[u][v] != 0 &&
-				dist[u] != Number.MAX_VALUE &&
-				dist[u] + graph[u][v] < dist[v])
+			if (!sptSet[v] && graph[u][v] != 0 &&                   //O(V*V)
+				dist[u] != Number.MAX_VALUE &&                      
+				dist[u] + graph[u][v] < dist[v])                    
 			{
-				dist[v] = dist[u] + graph[u][v];
-                prev[v] = u;
+				dist[v] = dist[u] + graph[u][v];                    //O(V*V)
+                prev[v] = u;                                        //O(V*V)
 			}
 		}
 	}
-    let list = [];
-    console.log(prev);
-    while (prev[end] != undefined) {
-        console.log(prev[end]);
-        list.push(prev[end]);
-        end = prev[end];
+    let list = [];                                                  //O(1)
+    console.log(prev);  
+    while (prev[end] !=undefined) {                                 //O(V)
+        console.log(prev[end]);                                     //O(V)
+        list.push(prev[end]);                                       //O(V)
+        end = prev[end];                                            //O(V)
     }
     console.log(list);
-    for (let i = list.length-2; i >=0; i--) {
-        let delayres4 = await delay(time);
-        document.getElementById(list[i]).className = "yellow";
+    for (let i = list.length-2; i >=0; i--) {                       //O(V)
+        let delayres4 = await delay(time);                          //O(V)
+        document.getElementById(list[i]).className = "yellow";      //O(V)
     }
 
 	
