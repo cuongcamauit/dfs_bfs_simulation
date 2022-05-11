@@ -25,7 +25,9 @@ search.addEventListener('keyup', () => {
         }
     } else
         for (let [key, value] of map) { //O(n)
-            if (key.toLowerCase().includes(searchkey.toLowerCase())) //O(n*m*m*k)
+            keyup = key.toLowerCase(); // O(n*m)
+            searchkeyup = searchkey.toLowerCase(); // O(n*k)
+            if (keyup.includes(searchkeyup)) //O(n*m)
                 list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`; //O(n*m*m*k)
         }
 });
