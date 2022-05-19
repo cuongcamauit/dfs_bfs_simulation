@@ -215,8 +215,7 @@ returnarray = () => {       // O(n*n)
 }
 
 
-function minDistance(dist,sptSet)                               
-{
+function minDistance(dist,sptSet) {  // T(v) = 3 + (v+1) + 3v + 1 = 5+4v => O(n) = n
 	let V = parseInt(userInput.value*userInput.value);              // 1 dvtg
 	// Initialize min value
 	let min = Number.MAX_VALUE;                                     // 1 dvtg
@@ -233,79 +232,57 @@ function minDistance(dist,sptSet)
 	return min_index;                                               // 1 dvtg
 }
 
-async function dijkstra()
-{
-    let V = parseInt(userInput.value*userInput.value);           //O(1)
-    let graph = returnarray();                                    
-    let src = parseInt(document.querySelector(".green").id);    //O(1)
-    let end = parseInt(document.querySelector(".red").id);      //O(1)
+async function dijkstra() {         // T(V) = 6 + 2(V+1) + 2V + 1 + 2V + 2(V-1) + (V-1)*2(V-1) + (V-1)*V*3 + 1 + 7V = 9+9V+5V^2 => O(n) = n^2
+    let V = parseInt(userInput.value*userInput.value);          // 1 dvtg
+    let graph = returnarray();                                  
+    let src = parseInt(document.querySelector(".green").id);    // 1 dvtg
+    let end = parseInt(document.querySelector(".red").id);      // 1 dvtg
 
 
 
-	let dist = new Array(V);                                    //O(1)
-	let sptSet = new Array(V);                                  //O(1)
-    let prev = new Array(V);                                    //O(1)
+	let dist = new Array(V);                                    // 1 dvtg
+	let sptSet = new Array(V);                                  // 1 dvtg
+    let prev = new Array(V);                                    // 1 dvtg
 	
-	// Initialize all distances as
-	// INFINITE and stpSet[] as false
-	for(let i = 0; i < V; i++)                                  //O(V)
+	for(let i = 0; i < V; i++)                                  // 2(V+1) dvtg
 	{
-		dist[i] = Number.MAX_VALUE;                             //O(V)
-		sptSet[i] = false;                                      //O(V)
+		dist[i] = Number.MAX_VALUE;                             // V dvtg
+		sptSet[i] = false;                                      // V dvtg
 	}
+
+	dist[src] = 0;                                                 // 1 dvtg
 	
-	// Distance of source vertex
-	// from itself is always 0
-	dist[src] = 0;                                                 //O(1)
-	
-	// Find shortest path for all vertices
-	for(let count = 0; count < V - 1; count++)                      //O(V)
-	{
+	for(let count = 0; count < V - 1; count++)                      // 2*V dvtg
+    {
 		
-		// Pick the minimum distance vertex
-		// from the set of vertices not yet
-		// processed. u is always equal to
-		// src in first iteration.
-		let u = minDistance(dist, sptSet);                          //O(V)
+		let u = minDistance(dist, sptSet);                          // V-1 dvtg
 		
-		// Mark the picked vertex as processed
-		sptSet[u] = true;                                                   //O(1)
+		sptSet[u] = true;                                           // V-1 dvtg
 		
-		// Update dist value of the adjacent
-		// vertices of the picked vertex.
-		for(let v = 0; v < V; v++)                                  //O(V*V)
+		for(let v = 0; v < V; v++)                                  // (V-1)*2(V+1) dvtg
 		{
-			
-			// Update dist[v] only if is not in
-			// sptSet, there is an edge from u
-			// to v, and total weight of path
-			// from src to v through u is smaller
-			// than current value of dist[v]
-			if (!sptSet[v] && graph[u][v] != 0 &&                   //O(V*V)
+			if (!sptSet[v] && graph[u][v] != 0 &&                   // (V-1)*V dvtg
 				dist[u] != Number.MAX_VALUE &&                      
 				dist[u] + graph[u][v] < dist[v])                    
 			{
-				dist[v] = dist[u] + graph[u][v];                    //O(V*V)
-                prev[v] = u;                                        //O(V*V)
+				dist[v] = dist[u] + graph[u][v];                    // (V-1)*V dvtg
+                prev[v] = u;                                        // (V-1)*V dvtg
 			}
 		}
 	}
-    let list = [];                                                  //O(1)
+    let list = [];                                                  // 1 dvtg
     console.log(prev);  
-    while (prev[end] !=undefined) {                                 //O(V)
-        console.log(prev[end]);                                     //O(V)
-        list.push(prev[end]);                                       //O(V)
-        end = prev[end];                                            //O(V)
+    while (prev[end] !=undefined) {                                 // V dvtg
+        console.log(prev[end]);                                     // V dvtg
+        list.push(prev[end]);                                       // V dvtg
+        end = prev[end];                                            // V dvtg
     }
     console.log(list);
-    for (let i = list.length-2; i >=0; i--) {                       //O(V)
-        let delayres4 = await delay(time);                          //O(V)
-        document.getElementById(list[i]).className = "yellow";      //O(V)
+    for (let i = list.length-2; i >=0; i--) {                       // V dvtg
+        let delayres4 = await delay(time);                          // V dvtg
+        document.getElementById(list[i]).className = "yellow";      // V dvtg
     }
 
-	
-	//Print the constructed distance array
-	// printSolution(dist);
 }
 
 
@@ -334,8 +311,12 @@ square.addEventListener("click", function(event) {
 
 square.addEventListener("mousemove", function(event) {
     if (flag) {
-        if (eraseStatus)
-            event.target.className = "square";
+        if (eraseStatus) {
+            event.target.classList.replace("black", "square");
+            event.target.classList.replace("green", "square");
+            event.target.classList.replace("red", "square");
+            
+        }
         else
             event.target.classList.replace("square", "black");
             
