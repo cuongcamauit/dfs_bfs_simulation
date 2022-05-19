@@ -5,29 +5,30 @@ const exactly = document.querySelector('#exactly');
 //     console.log(element);
 // });
 
+
+
+
 console.log(exactly);
 for (let [key, value] of map)
     list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`;
 
 search.addEventListener('keyup', () => {
-    let searchkey = search.value; //O(1)
-    let exact = exactly.checked; //O(1)
-    list.innerHTML = ''; //O(1)
-    //console.log(l[value]);
-    console.log(exact);
+    let searchkey = search.value;
+    let exact = exactly.checked;
+    list.innerHTML = '';
 
 
-
-    if (exact && searchkey != "") { //exact search
-        if (map.has(searchkey)) { //if the value is in the map     //O(1)
-            let content = map.get(searchkey); //O(1)
-            list.innerHTML += `<a href="process.php?id=${content[0]}"><img src="${content[1]}" alt="" width="300" height="300"></a> ${searchkey}`; //O(1)
+    // T(n) = 5 dvtg => O(n) = O(1)
+    if (exact && searchkey != "") { // 2 dvtg
+        if (map.has(searchkey)) { // 1 dvtg
+            let content = map.get(searchkey); // 1 dvtg
+            list.innerHTML += `<a href="process.php?id=${content[0]}"><img src="${content[1]}" alt="" width="300" height="300"></a> ${searchkey}`; // 1 dvtg
         }
-    } else
-        for (let [key, value] of map) { //O(n)
-            keyup = key.toLowerCase(); // O(n*m)
-            searchkeyup = searchkey.toLowerCase(); // O(n*k)
-            if (keyup.includes(searchkeyup)) //O(n*m)
-                list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`; //O(n*m*m*k)
-        }
+    } else // (n+1)+n*k+n*m+n*k*m*2 => O(n) = O(n*k*m)
+        for (let [key, value] of map) { // n+1 dvtg
+        keyup = key.toLowerCase(); // n*k dvtg 
+        searchkeyup = searchkey.toLowerCase(); // n*m dvtg
+        if (keyup.includes(searchkeyup)) // n*(k*m) dvtg
+            list.innerHTML += `<a href="process.php?id=${value[0]}"><img src="${value[1]}" alt="" width="300" height="300"></a> ${key}`; // n*(k*m) dvtg
+    }
 });

@@ -56,127 +56,59 @@ function delay(delayInms) {
     });
 }
 
-async function bfs() {
-    var n = parseInt(userInput.value);  // number of rows          //O(1)
-    var queue = []; // queue for BFS                        //O(1)
-    var start = parseInt(document.querySelector(".green").id); // start node   //O(1)
-    var end = parseInt(document.querySelector(".red").id);  // end node //O(1)
-    // console.log(document.querySelector(".green"));      
-    // console.log(start);
-    queue.push(start);  // push start node to queue       // O(1)
-    // var d = 0;  
-    while (queue.length != 0) {                           //O(n)
-        var u = parseInt(queue.shift()); // pop first element from queue       //O(n)
-        console.log(u);
 
+async function bfs() {      // 5 + (n+1) + n + 6n*4 = 6+26n => O(n) = n
+    var n = parseInt(userInput.value);                                                                  // 1 dvtg
+    var queue = [];                                                                                     // 1 dvtg
+    var start = parseInt(document.querySelector(".green").id);                                          // 1 dvtg
+    var end = parseInt(document.querySelector(".red").id);                                              // 1 dvtg
+    queue.push(start);                                                                                  // 1 dvtg
+
+
+    while (queue.length != 0) {                                                                         // n+1 dvtg                       
+        var u = parseInt(queue.shift());                                                                // n dvtg
+        
+        
         // top            
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {           //O(n)
-            queue.push(u - n);                                                                   //O(n)
-            let delayres1 = await delay(time);  // delay                                         
-            document.getElementById(`${u-n}`).className = "blue";                                 //O(n)
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {                  // n dvtg         
+            queue.push(u - n);                                                                          // n dvtg
+            let delayres1 = await delay(time);  // delay                                                // n dvtg
+            document.getElementById(`${u-n}`).className = "blue";                                       // n dvtg
 
         }
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) { // if end node   //O(n)
-            break;                                                                                    //O(n)
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) {                     // n dvtg
+            break;                                                                                      // n dvtg   
         }
 
         // right
-        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) { // if not last column
-            queue.push(u + 1);
-            let delayres2 = await delay(time);
-            document.getElementById(`${u+1}`).className = "blue";
+        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) {            // n dvtg
+            queue.push(u + 1);                                                                          // n dvtg
+            let delayres2 = await delay(time);                                                          // n dvtg
+            document.getElementById(`${u+1}`).className = "blue";                                       // n dvtg
 
         }
-        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "red")) {
-            break;
-        }
-
-        // bottom
-        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "square")) {
-            queue.push(u + n);
-            let delayres3 = await delay(time);
-            document.getElementById(`${u+n}`).className = "blue";
-
-        }
-        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "red")) {
-            break;
-        }
-
-        // left
-        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "square")) {
-            queue.push(u - 1);
-            let delayres4 = await delay(time);
-            document.getElementById(`${u-1}`).className = "blue";
-        }
-        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "red")) {
-            break;
-
-        }
-
-
-
-    }
-
-}
-
-async function dfs() {
-    var n = parseInt(userInput.value);
-    var stack = [];
-    var start = parseInt(document.querySelector(".green").id);
-    var end = parseInt(document.querySelector(".red").id);
-    // console.log(document.querySelector(".green"));
-    // console.log(start);
-    stack.push(start);
-    while (stack.length != 0) {
-        var u = parseInt(stack.pop());
-        console.log(u);
-        // top            
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {
-            stack.push(u); // push current node to stack
-            stack.push(u - n);
-            let delayres1 = await delay(time);
-            document.getElementById(`${u-n}`).className = "blue";
-            continue;
-        }
-        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) {
-            break;
-        }
-
-        // right
-        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) {
-            stack.push(u);
-            stack.push(u + 1);
-            let delayres2 = await delay(time);
-            document.getElementById(`${u+1}`).className = "blue";
-            continue;
-
-        }
-        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "red")) {
-            break;
+        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "red")) {               // n dvtg
+            break;                                                                                      // n dvtg
         }
 
         // bottom
-        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "square")) {
-            stack.push(u);
-            stack.push(u + n);
-            let delayres3 = await delay(time);
-            document.getElementById(`${u+n}`).className = "blue";
-            continue;
+        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "square")) {               // n dvtg
+            queue.push(u + n);                                                                          // n dvtg
+            let delayres3 = await delay(time);                                                          // n dvtg
+            document.getElementById(`${u+n}`).className = "blue";                                       // n dvtg
 
         }
-        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "red")) {
-            break;
+        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "red")) {                  // n dvtg
+            break;                                                                                      // n dvtg
         }
 
         // left
-        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "square")) {
-            stack.push(u);
-            stack.push(u - 1);
-            let delayres4 = await delay(time);
-            document.getElementById(`${u-1}`).className = "blue";
-            continue;
+        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "square")) {                // n dvtg
+            queue.push(u - 1);                                                                          // n dvtg
+            let delayres4 = await delay(time);                                                          // n dvtg
+            document.getElementById(`${u-1}`).className = "blue";                                       // n dvtg
         }
-        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "red")) {
+        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "red")) {                   // n dvtg
             break;
 
         }
@@ -184,23 +116,86 @@ async function dfs() {
 
 }
 
-returnarray = () => {
+async function dfs() {      // 5 + 2n + (2n-1) + 8*(2n-1)*4 = 68n-28 => O(n)
+    var n = parseInt(userInput.value);                                                                   // 1 dvtg
+    var stack = [];                                                                                      // 1 dvtg
+    var start = parseInt(document.querySelector(".green").id);                                           // 1 dvtg
+    var end = parseInt(document.querySelector(".red").id);                                               // 1 dvtg
+    stack.push(start);                                                                                   // 1 dvtg
+
+    while (stack.length != 0) {                                                                          // 2n dvtg                                                                       
+        var u = parseInt(stack.pop());                                                                   // 2n-1 dvtg
+    
+        // top            
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "square")) {                   // 2n-1 dvtg
+            stack.push(u);                                                                               // 2n-1 dvtg
+            stack.push(u - n);                                                                           // 2n-1 dvtg
+            let delayres1 = await delay(time);                                                           // 2n-1 dvtg
+            document.getElementById(`${u-n}`).className = "blue";                                        // 2n-1 dvtg
+            continue;                                                                                    // 2n-1 dvtg
+        }
+        if (u - n >= 0 && (document.getElementById(`${u-n}`).className == "red")) {                      // 2n-1 dvtg
+            break;                                                                                       // 2n-1 dvtg
+        }
+
+        // right
+        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "square")) {             // 2n-1 dvtg
+            stack.push(u);                                                                               // 2n-1 dvtg
+            stack.push(u + 1);                                                                           // 2n-1 dvtg
+            let delayres2 = await delay(time);                                                           // 2n-1 dvtg
+            document.getElementById(`${u+1}`).className = "blue";                                        // 2n-1 dvtg
+            continue;                                                                                    // 2n-1 dvtg
+
+        }
+        if ((u + 1) % n != 0 && (document.getElementById(`${u+1}`).className == "red")) {                // 2n-1 dvtg
+            break;                                                                                       // 2n-1 dvtg
+        }
+
+        // bottom
+        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "square")) {                // 2n-1 dvtg
+            stack.push(u);                                                                               // 2n-1 dvtg
+            stack.push(u + n);                                                                           // 2n-1 dvtg
+            let delayres3 = await delay(time);                                                           // 2n-1 dvtg
+            document.getElementById(`${u+n}`).className = "blue";                                        // 2n-1 dvtg
+            continue;                                                                                    // 2n-1 dvtg
+
+        }
+        if (u + n < n * n && (document.getElementById(`${u+n}`).className == "red")) {                   // 2n-1 dvtg
+            break;                                                                                       // 2n-1 dvtg
+        }
+
+        // left
+        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "square")) {                 // 2n-1 dvtg
+            stack.push(u);                                                                               // 2n-1 dvtg
+            stack.push(u - 1);                                                                           // 2n-1 dvtg
+            let delayres4 = await delay(time);                                                           // 2n-1 dvtg
+            document.getElementById(`${u-1}`).className = "blue";                                        // 2n-1 dvtg
+            continue;                                                                                    // 2n-1 dvtg
+        }
+        if ((u) % n != 0 && (document.getElementById(`${u-1}`).className == "red")) {                    // 2n-1 dvtg
+            break;                                                                                       // 2n-1 dvtg
+        }
+    }
+
+}
+
+returnarray = () => {       // O(n*n)
     
     var arr = new Array(userInput.value*userInput.value);
-    for (let i = 0; i < userInput.value*userInput.value; i++) {
-        arr[i] = new Array(userInput.value*userInput.value);
+    for (let i = 0; i < userInput.value*userInput.value; i++) {     // O(n)
+        arr[i] = new Array(userInput.value*userInput.value);        // O(n*n) voi n la so o
         for (let j = 0; j < userInput.value*userInput.value; j++) {
-            arr[i][j] = 0; // initialize all elements to 0
+            arr[i][j] = 0; 
         }
         if (document.getElementById(i).className == "black") {
             continue;
         }
-        // up
+        // top
         if (i-userInput.value >= 0 && document.getElementById(`${i-userInput.value}`).className != "black") {
             arr[i][i-userInput.value] = 1;
         }
 
-        // down        
+        // bottom      
         if (i+parseInt(userInput.value) < userInput.value*userInput.value && document.getElementById(`${i+parseInt(userInput.value)}`).className != "black") {
             arr[i][i+parseInt(userInput.value)] = 1;
         }
@@ -215,56 +210,29 @@ returnarray = () => {
             arr[i][i+1] = 1;
         }
     }
-    console.log(arr);
+
     return arr;
 }
 
-// A Javascript program for Dijkstra's single
-// source shortest path algorithm.
-// The program is for adjacency matrix
-// representation of the graph	
 
-
-// A utility function to find the
-// vertex with minimum distance
-// value, from the set of vertices
-// not yet included in shortest
-// path tree
-function minDistance(dist,sptSet)                               //O(V)
+function minDistance(dist,sptSet)                               
 {
-	let V = parseInt(userInput.value*userInput.value);         //O(1)
+	let V = parseInt(userInput.value*userInput.value);              // 1 dvtg
 	// Initialize min value
-	let min = Number.MAX_VALUE;                                     //O(1)
-	let min_index = -1;                                         //O(1)
+	let min = Number.MAX_VALUE;                                     // 1 dvtg
+	let min_index = -1;                                             // 1 dvtg
 	
-	for(let v = 0; v < V; v++)                                  //O(V)
+	for(let v = 0; v < V; v++)                                      // v+1 dvtg
 	{   
-		if (sptSet[v] == false && dist[v] <= min)                  //O(V)
+		if (sptSet[v] == false && dist[v] <= min)                   // v dvtg
 		{
-			min = dist[v];                                      //O(V)
-			min_index = v;                                      //O(V)
+			min = dist[v];                                          // v dvtg
+			min_index = v;                                          // v dvtg
 		}
 	}
-	return min_index;                                           //O(1)
+	return min_index;                                               // 1 dvtg
 }
 
-// A utility function to print
-// the constructed distance array
-// function printSolution(dist)
-// {
-
-// 	document.write("Vertex \t\t Distance from Source<br>");
-// 	for(let i = 0; i < V; i++)
-// 	{
-// 		document.write(i + " \t\t " +
-// 				dist[i] + "<br>");
-// 	}
-// }
-
-// Function that implements Dijkstra's
-// single source shortest path algorithm
-// for a graph represented using adjacency
-// matrix representation
 async function dijkstra()
 {
     let V = parseInt(userInput.value*userInput.value);           //O(1)
@@ -341,10 +309,6 @@ async function dijkstra()
 }
 
 
-
-
-
-
 const square = document.querySelector("div");
 let flag = false;
 
@@ -384,12 +348,6 @@ square.addEventListener("mousemove", function(event) {
 square.addEventListener("mousedown", function() {
     console.log(10);
 });
-
-
-
-
-
-
 
 
 

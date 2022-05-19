@@ -1,23 +1,18 @@
 const sorttype = document.getElementById("sort");
 
-function insertionSort(arr, n) {
-    let i, key, j;
-    for (i = 1; i < n; i++) {
-        key = arr[i];
-        j = i - 1;
-
-        /* Move elements of arr[0..i-1], that are 
-        greater than key, to one position ahead 
-        of their current position */
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+function insertionSort(arr, n) { // 3 + 2n + 3*(n-1) + n*(n+1)/2-1+(n-1)*n + 1 = 1/2 +        
+    let i, key, j; // 3 dvtg
+    for (i = 1; i < n; i++) { // 2n dvtg
+        key = arr[i]; // n-1 dvtg
+        j = i - 1; // n-1 dvtg
+        while (j >= 0 && arr[j] > key) { // 2+3+4+...n = ((n)*(n+1)/2)-1 dvtg
+            arr[j + 1] = arr[j]; // 1+2+3+..+n-1 = (n-1)*n/2 dvtg
+            j = j - 1; // (n-1)*n/2 dvtg
         }
-        arr[j + 1] = key;
+        arr[j + 1] = key; // n-1 dvtg
     }
-    return arr;
+    return arr; // 1 dvtg
 }
-
 
 
 updatelist = () => {
