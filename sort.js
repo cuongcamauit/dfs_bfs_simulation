@@ -1,6 +1,6 @@
 const sorttype = document.getElementById("sort");
 
-function insertionSort(arr, n) { // 3 + 2n + 3*(n-1) + n*(n+1)/2-1+(n-1)*n + 1 = 1/2 +        
+function insertionSort(arr, n) { // 3 + 2n + 3*(n-1) + n*(n+1)/2-1+(n-1)*n + 1 = 4.5n + 1.5n*n => O(n) = n*n
     let i, key, j; // 3 dvtg
     for (i = 1; i < n; i++) { // 2n dvtg
         key = arr[i]; // n-1 dvtg

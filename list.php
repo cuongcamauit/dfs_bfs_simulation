@@ -35,8 +35,7 @@
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) { ?>
             <script>
-                map.set("<?php echo $row['name'];?>", [<?php echo $row['id'];?>, "<?php echo $row["director"];?>", <?php echo $row["level"];?>]);
-                namelist.push("<?php echo $row['name'];?>");               
+                map.set("<?php echo $row['name'];?>", [<?php echo $row['id'];?>, "<?php echo $row["director"];?>", <?php echo $row["level"];?>]);              
             </script>
         <?php
             

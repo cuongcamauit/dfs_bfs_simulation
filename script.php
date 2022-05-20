@@ -321,9 +321,6 @@ square.addEventListener("mousemove", function(event) {
             event.target.classList.replace("square", "black");
             
         }
-        // console.log(square);
-        // console.log(event.target);
-        // console.log(grid);
 });
 
 square.addEventListener("mousedown", function() {
